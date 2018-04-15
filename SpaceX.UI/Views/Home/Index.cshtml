@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+@*<div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and gives you full control over markup
+                for enjoyable, agile development.
+            </p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+    </div>*@
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Launch Date and Time</th>
+            <th>Rocket Name</th>
+            <th>Link to Cargo Manifest</th>
+            <th>Launch Success</th>
+        </tr>
+    </thead>
+    <tbody id="stuff">
+        
+    </tbody>
+</table>
+
+
+@section scripts{
+    <script type="text/javascript">
+        //var uri = 'https://api.spacexdata.com/v2/launches';
+        //$.getJSON(uri).done(function (data) {
+        //    //document.getElementById('stuff').innerHTML = "<p>" + data.rocket.rocket_id + "</p>";
+        //    data.forEach(rocket => {
+        //        document.getElementById('stuff').innerHTML += "<tr>";
+        //        document.getElementById('stuff').innerHTML += "<td>" + rocket.launch_date_local + "</td>";
+        //        document.getElementById('stuff').innerHTML += "<td>" + rocket.rocket.rocket_name + "</td>";
+        //        //+ rocket.rocket.second_stage.payloads[0].cargo_manifest == null
+        //        //? "<p>No link to cargo manifest</p>" : "<a href='" + rocket.rocket.second_stage.payloads[0].cargo_manifest +
+        //        //"' target='_blank'>Link</a>" + "<h2>Was Launch a Success?</h2><p>" + rocket.launch_success + "</p></div>";
+        //        //var cargoManifest = rocket.rocket.second_stage.payloads[0].cargo_manifest.toString();
+        //        //if (rocket.rocket.second_stage.payloads[0].cargo_manifest == null) {
+        //        //    document.getElementById('stuff').innerHTML += "<p>No link to cargo manifest</p>";
+        //        //}
+        //        //else {
+        //        //    console.log('hi');
+        //        //    document.getElementById('stuff').innerHTML += "<a href='" + rocket.rocket.second_stage.payloads[0].cargo_manifest +
+        //        //        "' target='_blank'>Link</a>";
+        //        //}
+        //        rocket.rocket.second_stage.payloads[0].cargo_manifest == null ? document.getElementById('stuff').innerHTML +=
+        //            "<td>No link to cargo manifest</td>" : document.getElementById('stuff').innerHTML += "<td><a href='" +
+        //            rocket.rocket.second_stage.payloads[0].cargo_manifest +
+        //            "' target='_blank'>Link</a></td>";
+        //        document.getElementById('stuff').innerHTML += "<td>" + rocket.launch_success + "</td>";
+        //            document.getElementById('stuff').innerHTML += "</tr>";
+        //    });
+        //});
+
+        //$(document).ready(function () {
+        //    $('#table_id').DataTable({
+        //    });
+        //});
+
+        (function ($) {
+            var generateTable = $('#table_id')
+                .dataTable({
+                    "processing": true,
+                    "ajax": {
+                        "url": "https://api.spacexdata.com/v2/launches",
+                        "dataSrc": ''
+                    },
+                    "columns": [
+                        { "data": "launch_date_local" }, { "data": "rocket.rocket_name" },
+                        { "data": "rocket.second_stage.payloads[0].cargo_manifest" }, { "data": "launch_success" }
+                    ],
+                    "language": {
+                        "emptyTable": "There are no launches available",
+                        "zeroRecords": "There were no launches available"
+                    },
+                    "searching": false,
+                    "paging": true,
+                    "ordering": true
+                });
+        })(jQuery);
+    </script>
+}
